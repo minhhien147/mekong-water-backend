@@ -25,8 +25,10 @@ web: python app.py
 ### 1.2. Tạo file `runtime.txt` (chỉ định Python version)
 
 ```
-python-3.11.0
+python-3.11.9
 ```
+
+**Lưu ý:** Sử dụng Python 3.11.9 thay vì 3.11.0 để tránh lỗi precompiled binary trên Railway.
 
 ### 1.3. Tạo file `.railwayignore` (giống .gitignore)
 
@@ -145,6 +147,15 @@ Railway tự động deploy lại!
 ---
 
 ## 🐛 Troubleshooting
+
+### Lỗi: "no precompiled python found" / mise install failed
+
+**Nguyên nhân:** Railway không tìm thấy precompiled binary cho Python version cụ thể.
+
+**Giải pháp:**
+1. Cập nhật `runtime.txt` sang version mới hơn (ví dụ: `python-3.11.9` thay vì `python-3.11.0`)
+2. Hoặc xóa file `runtime.txt` để Railway dùng Python version mặc định
+3. Push lại code và redeploy
 
 ### Lỗi: Build failed
 
