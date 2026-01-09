@@ -112,13 +112,15 @@ git push -u origin main
 
 ```dart
 // lib/services/water_level_service.dart
-static const String baseUrl = 'https://mekong-water-backend-production.up.railway.app/api';
+static const String baseUrl = 'https://web-production-7cfe9.up.railway.app/api';
 ```
+
+**Lưu ý:** Thay `web-production-7cfe9.up.railway.app` bằng domain thực tế mà Railway tạo cho bạn.
 
 ### 4.2. Test kết nối
 
 ```bash
-curl https://mekong-water-backend-production.up.railway.app/api/health
+curl https://web-production-7cfe9.up.railway.app/api/health
 ```
 
 ---
