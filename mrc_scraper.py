@@ -43,23 +43,33 @@ class MRCWaterLevelScraper:
         """
         Thiết lập Chrome WebDriver với các options cần thiết
         """
+        import os
+        
         chrome_options = Options()
         
         if config.SELENIUM_CONFIG['headless']:
             chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--headless=new')  # Chrome 109+ syntax
         
-        # Các options để tối ưu performance
+        # Các options để tối ưu performance (đặc biệt quan trọng cho Docker)
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--disable-gpu')
         chrome_options.add_argument('--disable-blink-features=AutomationControlled')
         chrome_options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
+        chrome_options.add_argument('--disable-software-rasterizer')
+        chrome_options.add_argument('--disable-extensions')
         
         # Tắt các thông báo không cần thiết
         chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
         chrome_options.add_experimental_option('prefs', {
             'profile.default_content_setting_values.notifications': 2
         })
+        
+        # Nếu đang chạy trong Docker, chỉ định Chrome binary path
+        if os.path.exists('/usr/bin/google-chrome'):
+            chrome_options.binary_location = '/usr/bin/google-chrome'
+            logger.info("Running in Docker environment - using /usr/bin/google-chrome")
         
         try:
             service = Service(ChromeDriverManager().install())
